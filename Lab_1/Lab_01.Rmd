@@ -1,0 +1,91 @@
+---
+title: "Lab 1"
+author: "Abhinav Garg"
+date: "1/10/2017"
+output: html_document
+---
+# Loading Data
+```{r setup, include= TRUE }
+knitr::opts_chunk$set(echo = TRUE)
+
+## Set working directory 
+
+setwd('/Users/abhi/Documents/UW/Courses/Winter Quarter 17/INFX 573/Week_2/Lab_1/')
+
+## Loading the data 
+
+seatbelts <- read.csv('seatbelts.csv')
+
+head(seatbelts)
+
+## Get information on data 
+
+dim(seatbelts)
+colnames(seatbelts)
+```
+# Summary 
+```{r Summary, include = TRUE}
+summary(seatbelts)
+```
+# Calculating Averages
+```{r Computing Averages, include=TRUE}
+ 
+
+mean(seatbelts[,"DriversKilled"])
+
+mean(seatbelts[seatbelts[,"year"] >= 1969 & 
+                   seatbelts[,"year"]<1970,"DriversKilled"])
+
+by(seatbelts[,"DriversKilled"], seatbelts[,"year"], mean)
+
+```
+# Fatalities by year 1970 and 1978
+```{r Mean by Year}
+mean(subset(seatbelts$DriversKilled, seatbelts$year == 1970))
+mean(subset(seatbelts$DriversKilled, seatbelts$year == 1978))
+
+```
+# Rear seat fatalities by year 1972 and 1980 
+```{r}
+mean(subset(seatbelts$rear, seatbelts$year == 1972))
+mean(subset(seatbelts$rear, seatbelts$year == 1980))
+```
+
+# Exploring Relationships I
+```{r Exploring}
+plot(seatbelts[,"kms"], seatbelts[,"drivers"])
+abline(lm(seatbelts$drivers ~ seatbelts$kms), col = "blue")
+
+```
+
+### We can see that the fatalities for drivers decreases as the distance traveled increases as well as when the petrol price rises 
+```{r}
+plot(seatbelts[,"PetrolPrice"], seatbelts[,"drivers"])
+abline(lm(seatbelts$drivers ~ seatbelts$PetrolPrice), col = "blue")
+```
+
+# Exploring Relationships II
+```{r Exploring_2}
+library(ggplot2)
+p <- ggplot(seatbelts, aes(year,drivers, color = law)) + geom_point()
+p + geom_smooth(method = 'lm', formula = y~x)
+
+```
+
+### We can observe that the number of fatalities has decreased drastically after the seatbelt was passed. There is a sharp decline 
+```{r}
+```
+
+# Extra Credit Exploration 
+```{r Extra Credit}
+library(ggplot2)
+p <- ggplot(seatbelts, aes(year,VanKilled, color = law)) + geom_point() + facet_grid(.~law)
+
+g <- ggplot(seatbelts, aes(year,front, color = law)) + geom_point() + geom_smooth(method = 'lm', formula = y ~ x )
+g
+h <- ggplot(seatbelts, aes(year,rear, color = law)) + geom_point() + geom_smooth(method = 'lm', formula = y ~ x )
+h
+
+```
+
+### We can see from the above two plots that as the law was passed there was a steep decrease in the number of front seat riders fatalities. However, the seat belt law didn't make it mandatory for rear seat riders to wear seat belts and relatively the number of rear seat fatalities decreased very minutely even after the seat belt law was passed. Which shows that there is a possibility that if met with an accident front seat riders could avoid major fatality due to the mandate over rear seat drivers. 
