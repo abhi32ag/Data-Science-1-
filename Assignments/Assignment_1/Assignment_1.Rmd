@@ -1,0 +1,185 @@
+---
+title: "Assignment_1"
+author: "Abhinav Garg"
+date: "1/15/2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+# 1
+# Pew Research Survey 
+
+1 ) A 2012 Pew Research survey asked 2,373 randomly sampled registered voters their political affiliation (Republican, Democrat, or Independent) and whether or not they identify as swing voters.35% of respondents identified as Independent, 23% identified as swing voters, and 11% identified as both.
+
+a ) Are being Independent and being a swing voter disjoint, i.e. mutually exclusive?
+Ans : For two events A and B to be disjoint, P(AB) = P(A)*P(B)
+      In this scenario, Let I = being Independent S = being Swing Voter
+      P(IS) = 0.11, P(I) = .35, P(S) = 0.23
+      P(IS) is not P(I)*P(S)
+      Therefore these two events are not disjoint
+      
+b ) Percent of voters that are Independent but not swing, is percent of Independent     minus the percent of Independent and swing voters 
+    35 % - 11 % = 24 % 
+    = 0.24
+
+c ) Percent of swing voters or Independent voters P(I U S) = P(I) + P(S) - P(IS)
+    = 35% + 23% - 11%
+    = 47% 
+    = .47 
+    
+d ) Percent of neither Independent nor swing voters 
+    = P(IS)'
+    = 1 - P(IS)
+    = 1 - 0.11 
+    = .89
+
+e ) Yes the two events are independent of each other since they aren't mututally exclusive 
+
+# 2
+
+# Loading Data 
+
+```{r Loading Data}
+setwd("/Users/abhi/Documents/UW/Courses/Winter_Quarter_17/INFX_573/Assignments/Assignment_1")
+d1 <- read.csv("FelixHernandez2015.csv")
+```
+#Number of Wins
+```{r Number of Wins}
+ 
+
+sum(d1$W)
+
+```
+
+# Mean, Median and Mode 
+```{r Mean,Median and Mode}
+#Mean
+mean(d1$SO)
+#Median
+median(d1$SO)
+
+Mode <- function(x) {
+    ux <- unique(x)
+    ux[which.max(tabulate(match(x, ux)))]
+}
+Mode(d1$SO)
+```
+
+# Plotting Relationships 
+```{r Plotting}
+plot(d1$IP,d1$SO)
+abline(lm(d1$SO ~ d1$IP))
+```
+
+As we can see there is an increase in Strikeouts as the Number of Innings pitched increases 
+
+```{r Plotting2}
+plot(d1$IP,d1$BB)
+abline(lm(d1$BB ~ d1$IP))
+```
+
+As we can see there is a decrease in Base on balls ( walks ) as the Number of Innings pitched increases 
+
+# Correlation Coefficient 
+```{r cor1}
+cor(d1$IP,d1$SO)
+```
+
+```{r cor2}
+cor(d1$IP,d1$BB)
+```
+
+As we can see both correlation coefficients align with what we saw in the plots 
+
+# Mean and Variance by Month 
+
+```{r Mean by Month}
+by(d1$BB, d1$Month,mean)
+```
+
+```{r Variance by Month}
+by(d1$BB, d1$Month,var)
+```
+
+The mean and variance both vary over time. To be completed 
+
+# Wins by Home or Away
+```{r Home or Away}
+by(d1$W,d1$away,sum)
+```
+
+From this we see that Felix wins more at Home : 11 than Away: 7
+
+# Loading from other data set 
+```{r Randy Johnson}
+d2 <- read.csv("RandyJohnson1995.csv")
+Felix <- sum(d1$SO)
+Randy <- sum(d2$SO)
+df <- cbind(Felix,Randy)
+df
+```
+
+As we can see Randy outperforms Felix in terms of Strike Outs
+
+# 3
+Sophia who took the Graduate Record Examination (GRE) scored 160 on the Verbal Reasoning
+section and 157 on the Quantitative Reasoning section. The mean score for Verbal Reasoning section
+for all test takers was 151 with a standard deviation of 7, and the mean score for the Quantitative
+Reasoning was 153 with a standard deviation of 7.67. Suppose that both distributions are nearly
+normal.
+
+a ) Sophia's Z-Score 
+
+    On the Verbal Reasoning Section is :
+    160 - 151 / 7 
+    = 1.2857
+    
+    On the Quantitaive Reasoning Section is :
+    157 - 153 / 7.67
+    = 0.5215
+    
+b ) 
+```{r marking Z-scores}
+xseq <- seq(-4,4,.01)
+densities  <- dnorm(xseq, 0, 1)
+plot(xseq, densities, col = "darkgreen", xlab = "", ylab = "Density", type = "l", lwd = 2, main = "Standard Normal")
+abline(v = 1.2857,col = "red")
+abline(v = 0.5215,col = "blue")
+
+```
+    
+c ) Relative to others she did well on the Verbal Section
+
+d )
+
+# Percentile for Verbal Section 
+```{r Percentiles}
+pnorm(1.2857)*100
+```
+# Percentile for Quantitative Section 
+```{r Percentiles2}
+pnorm(0.5215)*100
+```
+
+e ) 
+
+# Percent of people who did better on Verbal Section 
+```{r Better}
+(1 - pnorm(1.2857))*100
+```
+
+# Percent of people who did better on Quantitative Section 
+```{r Better2}
+(1 - pnorm(0.5215))*100
+```
+
+f )
+
+Simply comparing the Raw scores would lead to an incorrect solution that she did better on the Quantitative Section because the mean for the Quantitative Section is higher than the mean for the Verbal section however we also have to consider the standard deviations for the two which helps us get a more better statistic in distinguishing her performance relevant to the other students 
+
+# -----
+```{r }
+```
+
