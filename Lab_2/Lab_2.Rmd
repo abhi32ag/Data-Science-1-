@@ -14,4 +14,8 @@ knitr::opts_chunk$set(echo = TRUE)
 ```{r Load}
 setwd("/Users/abhi/Data_Science_1/Lab_2/")
 ratings <- read.csv("ratings.csv")
+dim(ratings)
+users <- unique(ratings$userId)
+d <- ratings[users,]
+dim(d)
 ```
