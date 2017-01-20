@@ -9,6 +9,8 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+# Part 1 
+
 ## 1. Load the Data 
 
 ```{r Load}
@@ -42,6 +44,46 @@ hist(ratings$rating)
 
 ## 2. Link the two datasets using movieid
 ```{r Link}
-d1 <- match(ratings$movieId, movies$movieId)
-d1
+ix <- match(ratings$movieId, movies$movieId)
+
+head(ratings$movieId)
+head(movies$movieId[ix])
+
+temp <- merge(ratings, movies, by = 'movieId')
+head(temp)
 ```
+
+
+
+## 3. Exploring Relationships I
+```{r Explore I}
+plot(ratings$year, ratings$rating)
+boxplot(rating ~ year, data = ratings)
+boxplot(rating ~ cut(year,breaks = 10), data = ratings)
+```
+
+## 4. Exploring Relationships II
+```{r Explore II}
+# a) Do the ratings vary by genre? Create a ‘comedy’ column and draw a box plot of ratings for comedy versus others:
+
+ratings$comedy <- rep(F, nrow=ratings)
+ratings$comedy[grep("comedy",ratings$genre,ignore.case = T)] <- T
+
+boxplot(rating ~ comedy, data=ratings)
+
+# b) Run a t-test to see if the differences in ratings for comedy versus non-comedy
+
+t.test(ratings$rating, ratings$comedy)
+```
+
+## 5. Extra credit 
+```{r Extra}
+sorted_ratings <- ratings[order(-ratings$rating),]
+top_ten_id<- head(sorted_ratings$movieId, n = 10)
+top_ten_id
+bool_vec <- top_ten_id == movies$movieId
+top_ten_movie <- movies[movies[bool_vec,],title]
+top_ten_movie$title
+```
+
+# Part 2 
