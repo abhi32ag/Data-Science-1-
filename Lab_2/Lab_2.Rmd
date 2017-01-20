@@ -14,7 +14,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ## 1. Load the Data 
 
 ```{r Load}
-setwd("/Users/abhi/Data_Science_1/Lab_2/")
+setwd("/Users/abhi/Documents/UW/Courses/Winter_Quarter_17/INFX_573/Week_3/Lab_2")
 ratings <- read.csv("ratings.csv")
 movies <- read.csv("movie.titles.csv")
 dim(ratings)
@@ -81,9 +81,50 @@ t.test(ratings$rating, ratings$comedy)
 sorted_ratings <- ratings[order(-ratings$rating),]
 top_ten_id<- head(sorted_ratings$movieId, n = 10)
 top_ten_id
-bool_vec <- top_ten_id == movies$movieId
-top_ten_movie <- movies[movies[bool_vec,],title]
-top_ten_movie$title
+movies[top_ten_id,]$title
+
 ```
 
 # Part 2 
+
+```{r distributions}
+# Examine several distributions
+hist(rexp(1000))
+
+hist(runif(1000,0,1))
+
+hist(rpois(1000,0.5))
+
+
+# Look at the distributions of sums of these samples
+
+N <- 10000 # number of exponential draws
+n.samp <- 30 # number of sums to take
+M <- matrix(NA, nrow=N, ncol=n.samp) # create an empty matrix to fill with samples
+for(j in 1:n.samp) M[,j] <- rexp(N) #generate the samples
+hist(rowSums(M), freq = F) # plot a histogram of the sums across rows of our matrix M
+
+curve(dnorm(x, mean(rowSums(M)), sd(rowSums(M))), min(rowSums(M)),
+max(rowSums(M)), add=T, col="red", lwd=2)
+
+
+# For Uniform 
+
+
+for(j in 1:n.samp) M[,j] <- runif(N,0,1) #generate the samples
+hist(rowSums(M), freq = F) # plot a histogram of the sums across rows of our matrix M
+
+curve(dnorm(x, mean(rowSums(M)), sd(rowSums(M))), min(rowSums(M)),
+max(rowSums(M)), add=T, col="red", lwd=2)
+
+
+# For Poisson 
+
+
+for(j in 1:n.samp) M[,j] <- rpois(N,0.5) #generate the samples
+hist(rowSums(M), freq = F) # plot a histogram of the sums across rows of our matrix M
+
+curve(dnorm(x, mean(rowSums(M)), sd(rowSums(M))), min(rowSums(M)),
+max(rowSums(M)), add=T, col="red", lwd=2)
+```
+}
