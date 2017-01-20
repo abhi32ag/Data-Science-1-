@@ -30,10 +30,11 @@ c ) Percent of swing voters or Independent voters P(I U S) = P(I) + P(S) - P(IS)
     = .47 
     
 d ) Percent of neither Independent nor swing voters 
-    = P(IS)'
-    = 1 - P(IS)
-    = 1 - 0.11 
-    = .89
+    = P(I U S)'
+    = 1 - P(I U S)
+    = 1 - 0.47
+    = .53
+    = 53 %
 
 e ) Yes the two events are independent of each other since they aren't mututally exclusive 
 
@@ -96,14 +97,29 @@ As we can see both correlation coefficients align with what we saw in the plots
 # Mean and Variance by Month 
 
 ```{r Mean by Month}
-by(d1$BB, d1$Month,mean)
+d2 = as.matrix(by(d1$BB, d1$Month,mean))
+mo2Num <- function(x) match(tolower(x), tolower(month.abb))
+d2 = cbind(d2,mo2Num(levels(factor(d1$Month))))
+d2 = d2[order(d2[,2]),]
+d2
+plot(d2[,1],xlab = "Month", xaxt="n")
+axis(1,at = 1:6, labels=c("Apr","May","Jun","Jul","Aug","Sep"))
+lines(d2[,1], col="red")
+
 ```
 
 ```{r Variance by Month}
-by(d1$BB, d1$Month,var)
+d4 = as.matrix(by(d1$BB, d1$Month,var))
+mo2Num <- function(x) match(tolower(x), tolower(month.abb))
+d4 = cbind(d4,mo2Num(levels(factor(d1$Month))))
+d4 = d4[order(d4[,2]),]
+d4
+plot(d4[,1],xlab = "Month", xaxt="n")
+axis(1,at = 1:6, labels=c("Apr","May","Jun","Jul","Aug","Sep"))
+lines(d4[,1], col="Blue")
 ```
 
-The mean and variance both vary over time. To be completed 
+The mean and variance both vary over time. The pattern that we see is a fluctuation in mean performance over the season. However Felix's performance varies a lot from the mean in the month of September. Also as the mean number of walks increases, there is a decline in performance. So in the plot with mean of walks per month, we see that his performance declines in the month of June and September 
 
 # Wins by Home or Away
 ```{r Home or Away}
@@ -145,8 +161,11 @@ b )
 xseq <- seq(-4,4,.01)
 densities  <- dnorm(xseq, 0, 1)
 plot(xseq, densities, col = "darkgreen", xlab = "", ylab = "Density", type = "l", lwd = 2, main = "Standard Normal")
+legend(2000,9.5,c("Verbal,Quantitative"),lty=c(1,1),lwd=c(2.5,2.5), col=c("red","blue"))
 abline(v = 1.2857,col = "red")
 abline(v = 0.5215,col = "blue")
+
+
 
 ```
     
