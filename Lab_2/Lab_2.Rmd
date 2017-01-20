@@ -1,0 +1,17 @@
+---
+title: "Lab_2"
+author: "Abhinav Garg"
+date: "1/19/2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Load Data 
+
+```{r Load}
+setwd("/Users/abhi/Data_Science_1/Lab_2/")
+ratings <- read.csv("ratings.csv")
+```
