@@ -9,13 +9,39 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Load Data 
+## 1. Load the Data 
 
 ```{r Load}
 setwd("/Users/abhi/Data_Science_1/Lab_2/")
 ratings <- read.csv("ratings.csv")
+movies <- read.csv("movie.titles.csv")
 dim(ratings)
 users <- unique(ratings$userId)
 d <- ratings[users,]
 dim(d)
+
+#Mean
+mean(ratings$rating)
+
+
+
+#Median 
+median(ratings$rating)
+#Mode
+Mode <- function(x) {
+    ux <- unique(x)
+    ux[which.max(tabulate(match(x, ux)))]
+}
+Mode(ratings$rating)
+
+#Plot histogram 
+
+hist(ratings$rating)
+
+```
+
+## 2. Link the two datasets using movieid
+```{r Link}
+d1 <- match(ratings$movieId, movies$movieId)
+d1
 ```
