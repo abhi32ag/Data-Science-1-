@@ -99,7 +99,7 @@ hist(rpois(1000,0.5))
 # Look at the distributions of sums of these samples
 
 N <- 10000 # number of exponential draws
-n.samp <- 25 # number of sums to take
+n.samp <- 30 # number of sums to take
 M <- matrix(NA, nrow=N, ncol=n.samp) # create an empty matrix to fill with samples
 for(j in 1:n.samp) M[,j] <- rexp(N) #generate the samples
 hist(rowSums(M), freq = F) # plot a histogram of the sums across rows of our matrix M
@@ -110,6 +110,7 @@ max(rowSums(M)), add=T, col="red", lwd=2)
 
 # For Uniform 
 
+
 for(j in 1:n.samp) M[,j] <- runif(N,0,1) #generate the samples
 hist(rowSums(M), freq = F) # plot a histogram of the sums across rows of our matrix M
 
@@ -118,6 +119,7 @@ max(rowSums(M)), add=T, col="red", lwd=2)
 
 
 # For Poisson 
+
 
 for(j in 1:n.samp) M[,j] <- rpois(N,0.5) #generate the samples
 hist(rowSums(M), freq = F) # plot a histogram of the sums across rows of our matrix M
