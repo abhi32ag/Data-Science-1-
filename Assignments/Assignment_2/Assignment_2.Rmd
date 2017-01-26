@@ -32,5 +32,8 @@ nyc_sea <- f[(f$dest %in% c('SEA') & f$origin %in% c('LGA','EWR','JFK')),] # Ori
 nrow(nyc_sea)
 ```
 c) How many airlines fly from NYC to Seattle? 
-```{r }
+```{r 1.c}
+nyc_sea <- f[(f$dest %in% c('SEA') & f$origin %in% c('LGA','EWR','JFK')),] # Origin is one of NYC Airports and dest is SEA
+nyc_sea_carrier <- unique(nyc_sea$carrier) # Unique carriers that fly from NYC to SEA
+length(nyc_sea_carrier) # Number of unique Carriers 
 ```
