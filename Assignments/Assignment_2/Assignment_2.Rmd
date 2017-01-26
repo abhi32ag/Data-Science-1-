@@ -44,3 +44,32 @@ nyc_sea <- f[(f$dest %in% c('SEA') & f$origin %in% c('LGA','EWR','JFK')),] # Ori
 avgarr_delay <- mean(nyc_sea$arr_delay,na.rm = T)
 avgarr_delay
 ```
+
+##2. 
+##Flights are often delayed. Consider the following questions exploring delay patterns.
+
+a) What is the mean arrival delay time? What is the median arrival delay time?
+```{r 2.a}
+mean_arrdelay <- mean(f$arr_delay, na.rm = T)
+# Mean Arrival Delay Time 
+mean_arrdelay
+median_arrdelay <- median(f$arr_delay, na.rm = T)
+# Median Arrival Delay Time
+median_arrdelay
+
+```
+b) What does a negative arrival delay mean ?
+```{r 2.b}
+?flights # Gives description about variables 
+
+```
+Negative times represents early arrivals 
+
+c) Plot a histogram of arrival delay times. Does the answers you obtained in (a)
+consistent with the shape of the delay time distribution?
+```{r 2.c}
+hist(f$arr_delay,xlim = c(-200,300),breaks = 100,xlab = 'Arrival Delay Time',main= 'Frequency of Arrival Delay Time')
+# Yes the answers obtained in (a) are consistent with the shape 
+```
+
+d) 
