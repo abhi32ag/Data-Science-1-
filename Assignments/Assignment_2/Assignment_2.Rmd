@@ -79,4 +79,13 @@ max(depdelay_month)
 # Departure delay is highest in the month of July which could be due to Summer break and also due to 4th of July 
 min(depdelay_month)
 # Departure delay is lowest in the month of November. Hence this could be the best month to leave New York 
+depdelay_month
+# The pattern is that the best time to fly out of NYC is during the months of September October November 
+```
+
+## 3
+## Exploratory Data Analysis 
+a)
+```{r 3.a}
+hist(f$arr_time, breaks = 100, main = 'Total Air Flight Time', xlab = 'Time in Minutes')
 ```
