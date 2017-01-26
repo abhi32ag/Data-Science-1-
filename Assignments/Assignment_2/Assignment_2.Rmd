@@ -14,7 +14,8 @@ knitr::opts_chunk$set(echo = TRUE)
 library(nycflights13) # load library 
 data(flights) # load data on flights 
 ```
-1. Let's explore flights from NYC to Seattle. Use the flights dataset to answer the following questions
+## 1. 
+##Let's explore flights from NYC to Seattle. Use the flights dataset to answer the following questions
 
 a) How many flights were there to and from NYC in 2013 ? 
 ```{r 1.a}
@@ -36,4 +37,10 @@ c) How many airlines fly from NYC to Seattle?
 nyc_sea <- f[(f$dest %in% c('SEA') & f$origin %in% c('LGA','EWR','JFK')),] # Origin is one of NYC Airports and dest is SEA
 nyc_sea_carrier <- unique(nyc_sea$carrier) # Unique carriers that fly from NYC to SEA
 length(nyc_sea_carrier) # Number of unique Carriers 
+```
+d) What is the average arrival delay for flights from NYC to Seattle ?
+```{r 1.d}
+nyc_sea <- f[(f$dest %in% c('SEA') & f$origin %in% c('LGA','EWR','JFK')),] # Origin is one of NYC Airports and dest is SEA
+avgarr_delay <- mean(nyc_sea$arr_delay,na.rm = T)
+avgarr_delay
 ```
