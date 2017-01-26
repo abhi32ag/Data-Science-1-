@@ -72,4 +72,11 @@ hist(f$arr_delay,xlim = c(-200,300),breaks = 100,xlab = 'Arrival Delay Time',mai
 # Yes the answers obtained in (a) are consistent with the shape 
 ```
 
-d) 
+d) Is there seasonality in departure delays?
+```{r 2.d}
+depdelay_month <- by(flights$dep_delay, flights$month, function(x) mean(x, na.rm=T))
+max(depdelay_month)
+# Departure delay is highest in the month of July which could be due to Summer break and also due to 4th of July 
+min(depdelay_month)
+# Departure delay is lowest in the month of November. Hence this could be the best month to leave New York 
+```
