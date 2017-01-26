@@ -11,9 +11,26 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Loading the Data 
 ```{r Load}
-install.packages("nycflights13") # install package
 library(nycflights13) # load library 
-data(flights)
+data(flights) # load data on flights 
 ```
+1. Let's explore flights from NYC to Seattle. Use the flights dataset to answer the following questions
 
+a) How many flights were there to and from NYC in 2013 ? 
+```{r 1.a}
+f <- flights
+nyc_dest <- f[f$dest %in% c('LGA','JFK','EWR'),] # FLights to NYC airport
+a<- nrow(f) # all Flights originate from NYC Airports
+b<- nrow(nyc_dest)
 
+# Number of flights from and to NYC
+a+b
+```
+b) How many flights were from NYC Airports to Seattle in 2013 ? 
+```{r 1.b}
+nyc_sea <- f[(f$dest %in% c('SEA') & f$origin %in% c('LGA','EWR','JFK')),] # Origin is one of NYC Airports and dest is SEA
+nrow(nyc_sea)
+```
+c) How many airlines fly from NYC to Seattle? 
+```{r }
+```
