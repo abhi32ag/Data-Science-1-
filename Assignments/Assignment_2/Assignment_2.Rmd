@@ -1,0 +1,19 @@
+---
+title: "Assignment_2"
+author: "Abhinav Garg"
+date: "1/25/2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Loading the Data 
+```{r Load}
+install.packages("nycflights13") # install package
+library(nycflights13) # load library 
+data(flights)
+```
+
+
