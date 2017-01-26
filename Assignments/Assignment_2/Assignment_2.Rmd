@@ -85,7 +85,36 @@ depdelay_month
 
 ## 3
 ## Exploratory Data Analysis 
-a)
+a) Plot a histogram of the total air flight time with 100 breaks.How many peaks do you see in this distribution? What is an explanation for this?
 ```{r 3.a}
 hist(f$arr_time, breaks = 100, main = 'Total Air Flight Time', xlab = 'Time in Minutes')
+```
+There is one clear peak for this distribution 
+
+b) What time of day do flights most commonly depart? Why might there be two most popular times of day to depart?
+```{r 3.b}
+time_inhr <- f$dep_time
+hist(time_inhr, breaks = 300, main = 'Frequency of Departure Times', xlab = 'Departure Time in Seconds',xaxt='n')
+axis(side=1,at= seq(0,3000,50),  labels=seq(0,3000,50))
+```
+Flights most commonly depart in the afternoon. There could be two popular times of the day to depart because one could be early in the morning for business people flying out to work at around 7.30 am and the other popular time would be for the general public that flies at most time of the day which is during the afternoon somewhere near 2.50 pm 
+
+c) Plot a box plot of departure delays and hour of departure. What pattern do you
+see? What is an explanation for this?
+```{r 3.c}
+boxplot(dep_delay ~ hour,breaks = 10,  data = f)
+```
+
+
+##4
+## Develop one research question you can address using the nycflights2013 dataset.Provide two visualizations to support your exploration of this question. Discuss what you find.
+```{r 4}
+# Number of flights of the carriers from NYC to Sea over the 12 months
+library(ggplot2)
+library(plyr)
+nyc_sea <- f[(f$dest %in% c('SEA') & f$origin %in% c('LGA','EWR','JFK')),] 
+frame <- data.frame(table(nyc_sea$month,nyc_sea$carrier))
+frame <- rename(frame,c("Var1" = "month","Var2" = "carrier", "Freq"= "frequency"))
+ggplot(frame,mapping = aes(x = frame$month, y = frequency,color = carrier, group = carrier)) + 
+geom_point() + geom_line() + xlab('Months') + ylab('Number of Flights')
 ```
