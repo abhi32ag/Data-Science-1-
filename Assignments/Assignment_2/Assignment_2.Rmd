@@ -14,8 +14,8 @@ knitr::opts_chunk$set(echo = TRUE)
 library(nycflights13) # load library 
 data(flights) # load data on flights 
 ```
-## 1. 
-##Let's explore flights from NYC to Seattle. Use the flights dataset to answer the following questions
+# 1. 
+# Let's explore flights from NYC to Seattle. Use the flights dataset to answer the following questions
 
 a) How many flights were there to and from NYC in 2013 ? 
 ```{r 1.a}
@@ -45,8 +45,8 @@ avgarr_delay <- mean(nyc_sea$arr_delay,na.rm = T)
 avgarr_delay
 ```
 
-##2. 
-##Flights are often delayed. Consider the following questions exploring delay patterns.
+#2. 
+#Flights are often delayed. Consider the following questions exploring delay patterns.
 
 a) What is the mean arrival delay time? What is the median arrival delay time?
 ```{r 2.a}
@@ -83,8 +83,8 @@ depdelay_month
 # The pattern is that the best time to fly out of NYC is during the months of September October November 
 ```
 
-## 3
-## Exploratory Data Analysis 
+# 3
+# Exploratory Data Analysis 
 a) Plot a histogram of the total air flight time with 100 breaks.How many peaks do you see in this distribution? What is an explanation for this?
 ```{r 3.a}
 hist(f$arr_time, breaks = 100, main = 'Total Air Flight Time', xlab = 'Time in Minutes')
@@ -106,15 +106,33 @@ boxplot(dep_delay ~ hour,breaks = 10,  data = f)
 ```
 
 
-##4
-## Develop one research question you can address using the nycflights2013 dataset.Provide two visualizations to support your exploration of this question. Discuss what you find.
-```{r 4}
-# Number of flights of the carriers from NYC to Sea over the 12 months
+#4
+# Develop one research question you can address using the nycflights2013 dataset.Provide two visualizations to support your exploration of this question. Discuss what you find.
+
+
+## Research Question: Does the airlines HUB airport influence the number of flights to that airport from NYC over the months in the year 2013 
+```{r 4.1.1}
+# Number of flights of the carriers from NYC to Atl over the 12 months
 library(ggplot2)
 library(plyr)
-nyc_sea <- f[(f$dest %in% c('SEA') & f$origin %in% c('LGA','EWR','JFK')),] 
-frame <- data.frame(table(nyc_sea$month,nyc_sea$carrier))
+nyc_atl <- f[(f$dest %in% c('ATL') & f$origin %in% c('LGA','EWR','JFK')),] 
+frame <- data.frame(table(nyc_atl$month,nyc_atl$carrier))
 frame <- rename(frame,c("Var1" = "month","Var2" = "carrier", "Freq"= "frequency"))
 ggplot(frame,mapping = aes(x = frame$month, y = frequency,color = carrier, group = carrier)) + 
-geom_point() + geom_line() + xlab('Months') + ylab('Number of Flights')
+geom_point() + geom_line() + xlab('Months') + ylab('Number of Flights')  + labs(title = 'Number of Flights by time (months) from NYC to ATL')
 ```
+
+As we can observe in the plot above there are 5 carriers that fly from NYC to Atlanta. Delta has the highest total number of flights to ATL from NYC airports over all months in 2013 and there is a huge gap between Delta and other carriers. Let us now take a look at flights to Fort Worth, TX which is the hub for American Airlines 
+
+```{r 4.1.2}
+library(ggplot2)
+library(plyr)
+labmon =c("JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC")
+nyc_dfw <- f[(f$dest %in% c('DFW') & f$origin %in% c('LGA','EWR','JFK')),] 
+frame <- data.frame(table(nyc_dfw$month,nyc_dfw$carrier))
+frame <- rename(frame,c("Var1" = "month","Var2" = "carrier", "Freq"= "frequency"))
+ggplot(frame,mapping = aes(x = frame$month, y = frequency,color = carrier, group = carrier)) + 
+geom_point() + geom_line() + xlab('Months') + ylab('Number of Flights') + labs(title = 'Number of Flights by time (months) from NYC to DFW')
+```
+
+It is interesting to see how there is such a stark difference between the total number of flights of other carriers to DFW and the total number of flights of American Airlines to DFW. So our research question is in some way answered that the HUB of the airline influences the number of flights that Airline has from NYC airports 
