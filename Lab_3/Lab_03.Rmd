@@ -21,7 +21,20 @@ load("BostonData.Rdat")
 plot(boston)
 ```
 
-# Fitting Linear Regression
-```{r Linear}
+It looks like the variables distance.to.work and NO.concentration are tightly related 
 
+# Fitting Linear Regression
+```{r Linear1}
+mod1 <- lm(home.value ~ NO.concentration, data = boston)
+summary(mod1)
 ```
+
+```{r Linear2}
+mod2 <- lm(home.value ~ distance.to.work, data = boston)
+summary(mod2)
+```
+```{r Linear3}
+mod3 <- lm(home.value ~ student.teacher.ratio, data = boston)
+summary(mod3)
+```
+
