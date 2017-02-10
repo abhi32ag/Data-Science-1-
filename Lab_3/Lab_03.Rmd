@@ -21,7 +21,7 @@ load("BostonData.Rdat")
 plot(boston)
 ```
 
-0)It looks like the variables distance.to.work and NO.concentration are tightly related 
+0)It looks like the variables distance.to.work and NO.concentration are tightly related an increase in nitrogen oxide could mean you are closer to work. Also Nitrogen Oxide concentration and home value are related closely as increase in NO concentrtion would mean a lower home value. The increase in student-teacher ratio also shows a decrease in home value. 
 
 # Fitting Linear Regression
 ```{r Linear1}
