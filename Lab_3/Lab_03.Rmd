@@ -7,9 +7,21 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+setwd("/Users/abhi/Documents/UW/Courses/Winter_Quarter_17/INFX_573/Week_5")
 ```
 
 # Loading Data 
 ```{r load}
+load("BostonData.Rdat")
+```
+
+# Plot Data 
+```{r plot}
+
+plot(boston)
+```
+
+# Fitting Linear Regression
+```{r Linear}
 
 ```
