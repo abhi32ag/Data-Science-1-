@@ -51,3 +51,12 @@ summary(mod.full)
 
 3) Here we can say that with a unit increase in Nitrogen Oxide the home value decreases by 44 units, also since there is an increase in Nitrogen Oxide the further you are from work increases the home value and the increase in student-teacher ratio decreases the homevalue
 
+4) Comaparing the R-squared with the single variable models we see that the R-squared is higher, hence the combined model with all three variables explains the data much better. 
+
+```{r Prediction}
+predict(mod.full, newdata=data.frame("distance.to.work" = 3,
+"NO.concentration" = 0.35, "student.teacher.ratio" = 10),
+interval="prediction")
+```
+So as we can see for the data point where distance to work is 3 units, Nitrogen Oxide is 0.35 units and student teacher ration is 10 units, the predicted home value would be approximately between 35227 and 63922 $
+
