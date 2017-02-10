@@ -21,20 +21,33 @@ load("BostonData.Rdat")
 plot(boston)
 ```
 
-It looks like the variables distance.to.work and NO.concentration are tightly related 
+0)It looks like the variables distance.to.work and NO.concentration are tightly related 
 
 # Fitting Linear Regression
 ```{r Linear1}
 mod1 <- lm(home.value ~ NO.concentration, data = boston)
 summary(mod1)
 ```
-
+1 a)We can see that with an increase in 1 unit of Nitrogen Oxide concentration, There is a decrease in the home-value which is reasonable. As a higher concentration of Nitrogen would cause a hazardous environment and that in turn would reduce the home values
 ```{r Linear2}
 mod2 <- lm(home.value ~ distance.to.work, data = boston)
 summary(mod2)
 ```
+1 b)We can see that with an increase in 1 unit of distance, There is an increase in the home-value which is reasonable. Because if you're closer to your work place you spend less distance travelling means that the homes near the work place aren't valued highly. Homes away from the work place could have higher value. Also since the p-value for this variable is closer to 0, we can't say that this association by chance. 
+
 ```{r Linear3}
 mod3 <- lm(home.value ~ student.teacher.ratio, data = boston)
 summary(mod3)
 ```
+1 c) The more student teacher ratio, the more the number of students and thus the spending power for that particular region would be less as students don't spend as much on homes. 
+
+
+2) We see that the adjusted R-squared for the mod3 is the highest and thus explains the data best in comparison to the other two models 
+
+```{r Mul-Reg}
+mod.full <- lm(home.value ~ distance.to.work + NO.concentration + student.teacher.ratio, data = boston)
+summary(mod.full)
+```
+
+3) Here we can say that with a unit increase in Nitrogen Oxide the home value decreases by 44 units, also since there is an increase in Nitrogen Oxide the further you are from work increases the home value and the increase in student-teacher ratio decreases the homevalue
 
