@@ -172,11 +172,16 @@ predictions <-  predict(fit, newdata = values)
 val <- as.numeric(c(50,55,70,75,90))
 class(predictions)
 m <- ggplot(mapping = aes(x = val, y =predictions))
-m <- m + geom_point()
+m <- m + geom_point() + labs(title = "Predicting Son's Height") + xlab("Father's Height")+ ylab("Prediction of Son's Height")
 m
 ```
 
 g) (5 pt) What do the estimates of the slope and height mean? Are the results statistically significant? Are they practically significant?
+
+```{r 4.g}
+summary(fit)
+```
+The estimates of the slope means that for an increase in every inch of the father's height, the son's height increase by 0.51409 inches. The estimate of the intercept means that if the father's height is zero the son's height is 33.86 inches which doesn't make sense. There would've been no data where the father's height is zero. However it is acceptable to interpret this as a coefficient in the model. 
 ## 5 
 
 
