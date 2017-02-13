@@ -115,10 +115,21 @@ ysheight = β0 + β1 x fheight
 
 filling in estimated coefficient values and interpret the coefficient estimates.
 ```{r 4.b}
-
+mod3 <- lm(height$sheight ~ height$fheight)
+summary(mod3)
 ```
 
+c) (5 pt) Find the 95% confidence intervals for the estimates. You may find the confint() command useful.
+```{r 4.c}
+confint(mod3,level=0.95)
+```
+
+d) (5 pt) Produce a visualization of the data and the least squares regression line.
+
+
 ## 5 
+
+
 
 An investigator is interested in understanding the relationship, if any, between the analytical skills of young gifted children and the father’s IQ, the mother’s IQ, and hours of educational TV. The data are here:
 
