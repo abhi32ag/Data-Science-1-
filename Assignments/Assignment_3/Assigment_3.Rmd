@@ -203,3 +203,16 @@ summary(mod1)
 mod2 <- lm(motheriq ~ score, data = gifted)
 summary(mod2)
 ```
+
+b) (5 pt) What are the estimates of the slopes for father and mother’s IQ score with their 95% confidence intervals? (Note, estimates and confidence intervals are usually reported:
+Estimate (95% CI: CIlower, CIupper)
+
+```{r 5.b.1}
+est_conf <- confint(mod1)
+est_conf
+```
+
+```{r 5.b.2}
+est_conf <- confint(mod2)
+est_conf
+```
