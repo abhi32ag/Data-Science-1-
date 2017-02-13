@@ -126,6 +126,15 @@ confint(mod3,level=0.95)
 
 d) (5 pt) Produce a visualization of the data and the least squares regression line.
 
+```{r 4.d}
+library(ggplot2)
+g<- ggplot(data = height,mapping = aes(x= fheight, y = sheight))
+g <- g + geom_point() + xlab("Father's Height") + ylab("Son's Heights")
+g <- g + labs(title = "Plot of Father- Son Height")
+g <- g + geom_smooth(method = 'lm', se = TRUE)
+g
+```
+
 
 ## 5 
 
