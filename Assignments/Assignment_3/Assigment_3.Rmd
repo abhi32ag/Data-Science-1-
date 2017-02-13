@@ -10,9 +10,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ## 1
-For each of the following situations, state whether the parameter of interest is a mean or a
-proportion. It may be helpful to examine whether individual responses are numerical or
-categorical.
+For each of the following situations, state whether the parameter of interest is a mean or a proportion. It may be helpful to examine whether individual responses are numerical or categorical.
 
 a) (1 pt) In a survey, one hundred college students are asked how many hours per week they spend on the Internet.
 
@@ -20,7 +18,7 @@ Ans: These responses are numerical and the parameter of interest is a mean
 
 b) (1 pt) In a survey, one hundred college students are asked: “What percentage of the time you spend on the Internet is part of your course work?”
 
-Ans: These responses could be numerical or categorical depending on the users response as it is an open ended question. Parameter of interest would be proportion 
+Ans: These responses are numerical. Therefore parameter of interest would be proportion 
 
 c) (1 pt) In a survey, one hundred college students are asked whether or not they cited information from Wikipedia in their papers.
 
@@ -61,7 +59,7 @@ a) Write down the null and alternative hypotheses for a two-sided test of whethe
 
 Null Hypothesis : The mean of a one ounce serving of potato chips is 130 calories 
 
-Alternate Hypothesis : Th mean of a one ounce seving of potato chips is greater or lesser than 130 calories 
+Alternate Hypothesis : The mean of a one ounce seving of potato chips is greater or lesser than 130 calories 
 
 b) (4 pt) Calculate the test statistic and find the p value.
 
@@ -83,10 +81,10 @@ Z <- num /den
 2*pnorm(-abs(Z))
 ```
 
-(2 pt) If you were the potato chip company would you rather have your alpha = 0.05 or
+c) (2 pt) If you were the potato chip company would you rather have your alpha = 0.05 or
 0.025 in this case? Why?
 
-since the p-value is 0.036, if the significance level is 0.05, the p-value is lesser than the significance level, therefore we would have to reject the null hypothesis that the calories in one serving is 130 calories and accept that it is more than 130 calories. However if the significance level is 0.025 we would be within the confidence interval and accept the null hypothesis.But that being said, we cannot assume the significance level after calculating or taking the samples as this is ethically not correct. 
+Since the p-value is 0.036, if the significance level is 0.05, the p-value is lesser than the significance level, therefore we would have to reject the null hypothesis that the calories in one serving is 130 calories and accept that it is more than 130 calories. However if the significance level is 0.025 we would be within the confidence interval and accept the null hypothesis. But that being said, we cannot assume the significance level after calculating or taking the samples as this is ethically not correct. 
 
 
 ## 4 
@@ -100,12 +98,23 @@ height <- get("father.son")
 ```
 
 a) (5 pt) Perform an exploratory analysis of the father and son heights. What does the relationship look like? Would a linear model be appropriate here?
-```{r 4.a}
+```{r 4.a.1}
+summary(height)
+```
+We see a summary of the dataset initially
+```{r 4.a.2}
 plot(sheight ~ fheight, data = height, xlab = "Father's height", ylab="Son's height" )
 title("Plot of Father-Son Height")
 cor(height$sheight, height$fheight)
 ```
-We can see that there is a positive correlation between the son and father's height, therefore a linear model could be utilized here. 
+We can see that there is a positive correlation between the son and father's height, therefore a linear model could be utilized here. Let us also observe the residuals just to ensure there isn't a pattern. 
+
+```{r 4.a.3}
+fit <- lm(sheight ~ fheight, data = height)
+par(mfrow = c(2, 2))
+plot(fit)
+```
+We different kinds of plots to observe this data. Let us focus on the residual plot to the top left. From this plot we can observe that the variables are randomly distrbuted and that there is no pattern between the residuals and the independent variable. Thus we can say that a linear model is appropriate to use. If there was a visible pattern ( like u-shaped or inverted-u) in this plot we would have to utilize non-linear models.
 
 
 b) (5 pt) Use the lm function in R to fit a simple linear regression model to predict son’s
@@ -118,11 +127,16 @@ filling in estimated coefficient values and interpret the coefficient estimates.
 mod3 <- lm(height$sheight ~ height$fheight)
 summary(mod3)
 ```
-
+Therefore β0 = 33.886
+          β1 = 0.5149
+          
+          
 c) (5 pt) Find the 95% confidence intervals for the estimates. You may find the confint() command useful.
 ```{r 4.c}
 confint(mod3,level=0.95)
 ```
+
+
 
 d) (5 pt) Produce a visualization of the data and the least squares regression line.
 
@@ -137,6 +151,31 @@ g
 
 
 e) (5 pt) Produce a visualization of the residuals versus the fitted values. (You can inspect the elements of the linear model object in R using names()). Discuss what you see. Do you have any concerns about the linear model?
+```{r 4.e}
+fit <- lm(sheight ~ fheight, data = height)
+res <- resid(fit)
+res
+par(mfrow = c(1,1))
+plot(height$fheight, res, 
+     ylab = "Residuals",
+     xlab = "Father's Height ( Fitted Values)",
+     main = "Residuals of Height")
+abline(0, 0)
+ 
+```
+As mentioned in the exploratory analysis section, since the plot of fitted values vs the residuals is random, a linear model is appropriate to use. 
+
+f) (5 pt) Using the model you fit in part (b) predict the height of 5 males whose father are 50, 55, 70, 75, and 90 inches respectively. You may find the predict() function helpful.
+```{r 4.f}
+values <- data.frame(fheight=c(50,55,70,75,90))
+predictions <-  predict(fit, newdata = values)
+val <- as.numeric(c(50,55,70,75,90))
+class(predictions)
+m <- ggplot(mapping = aes(x = val, y =predictions))
+m <- m + geom_point()
+m
+```
+
 
 ## 5 
 
