@@ -176,7 +176,7 @@ m <- m + geom_point()
 m
 ```
 
-
+g) (5 pt) What do the estimates of the slope and height mean? Are the results statistically significant? Are they practically significant?
 ## 5 
 
 
