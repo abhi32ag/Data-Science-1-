@@ -129,7 +129,8 @@ summary(mod3)
 ```
 Therefore β0 = 33.886
           β1 = 0.5149
-          
+
+The estimates of the slope means that for an increase in every inch of the father's height, the son's height increase by 0.51409 inches. The estimate of the intercept means that if the father's height is zero the son's height is 33.86 inches which doesn't make sense. There would've been no data where the father's height is zero. However it is acceptable to interpret this as a coefficient in the model. 
           
 c) (5 pt) Find the 95% confidence intervals for the estimates. You may find the confint() command useful.
 ```{r 4.c}
@@ -181,7 +182,7 @@ g) (5 pt) What do the estimates of the slope and height mean? Are the results st
 ```{r 4.g}
 summary(fit)
 ```
-The estimates of the slope means that for an increase in every inch of the father's height, the son's height increase by 0.51409 inches. The estimate of the intercept means that if the father's height is zero the son's height is 33.86 inches which doesn't make sense. There would've been no data where the father's height is zero. However it is acceptable to interpret this as a coefficient in the model. 
+The estimates of the slope and height are statistically significant as the p-value for both ( < 2e-16 ) is very small. Indicating that the possibility of observing this by chance is very small. The estimates of the slope means that for an increase in every inch of the father's height, the son's height increase by 0.51409 inches. The estimate of the intercept means that if the father's height is zero the son's height is 33.86 inches which doesn't make sense. There would've been no data where the father's height is zero. However it is acceptable to interpret this as a coefficient in the model. 
 ## 5 
 
 
@@ -193,12 +194,12 @@ library(openintro)
 data(gifted)
 ```
 
-```{r 5.a}
+```{r 5.a.1}
 mod1 <- lm(fatheriq ~ score, data = gifted)
 summary(mod1)
 ```
 
-```{r 5.b}
+```{r 5.a.2}
 mod2 <- lm(motheriq ~ score, data = gifted)
 summary(mod2)
 ```
