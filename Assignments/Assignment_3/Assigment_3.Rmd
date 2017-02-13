@@ -99,6 +99,25 @@ height <- get("father.son")
 
 ```
 
+a) (5 pt) Perform an exploratory analysis of the father and son heights. What does the relationship look like? Would a linear model be appropriate here?
+```{r 4.a}
+plot(sheight ~ fheight, data = height, xlab = "Father's height", ylab="Son's height" )
+title("Plot of Father-Son Height")
+cor(height$sheight, height$fheight)
+```
+We can see that there is a positive correlation between the son and father's height, therefore a linear model could be utilized here. 
+
+
+b) (5 pt) Use the lm function in R to fit a simple linear regression model to predict son’s
+height as a function of father’s height. Write down the model,
+
+ysheight = β0 + β1 x fheight
+
+filling in estimated coefficient values and interpret the coefficient estimates.
+```{r 4.b}
+
+```
+
 ## 5 
 
 An investigator is interested in understanding the relationship, if any, between the analytical skills of young gifted children and the father’s IQ, the mother’s IQ, and hours of educational TV. The data are here:
