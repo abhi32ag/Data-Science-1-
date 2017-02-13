@@ -114,19 +114,36 @@ fit <- lm(sheight ~ fheight, data = height)
 par(mfrow = c(2, 2))
 plot(fit)
 ```
-We different kinds of plots to observe this data. Let us focus on the residual plot to the top left. From this plot we can observe that the variables are randomly distrbuted and that there is no pattern between the residuals and the independent variable. Thus we can say that a linear model is appropriate to use. If there was a visible pattern ( like u-shaped or inverted-u) in this plot we would have to utilize non-linear models.
 
 
+We see different kinds of plots to observe this data. Let us focus on the residual plot to the top left. From this plot we can observe that the variables are randomly distrbuted and that there is no pattern between the residuals and the independent variable. Thus we can say that a linear model is appropriate to use. If there was a visible pattern ( like u-shaped or inverted-u) in this plot we would have to utilize non-linear models.
+
+```{r 4.a.4}
+predicted <- predict(fit)
+residuals <- resid(fit)
+ggplot(height, aes(x = fheight, y = sheight)) +
+  geom_smooth(method = "lm", se = FALSE, color = "lightgrey") + 
+  geom_segment(aes(xend = fheight, yend = predicted), alpha = .2) + 
+  geom_point(aes(alpha = abs(residuals))) + 
+  guides(alpha = FALSE) +
+  geom_point(aes(y = predicted), shape = 1) +
+  theme_bw()  
+```
+
+We can see how the further the further the actual data point is from the regression line, the darker is the point 
 b) (5 pt) Use the lm function in R to fit a simple linear regression model to predict son’s
 height as a function of father’s height. Write down the model,
 
 ysheight = β0 + β1 x fheight
 
 filling in estimated coefficient values and interpret the coefficient estimates.
+
 ```{r 4.b}
 mod3 <- lm(height$sheight ~ height$fheight)
 summary(mod3)
 ```
+
+
 Therefore β0 = 33.886
           β1 = 0.5149
 
@@ -155,7 +172,6 @@ e) (5 pt) Produce a visualization of the residuals versus the fitted values. (Yo
 ```{r 4.e}
 fit <- lm(sheight ~ fheight, data = height)
 res <- resid(fit)
-res
 par(mfrow = c(1,1))
 plot(height$fheight, res, 
      ylab = "Residuals",
@@ -164,14 +180,15 @@ plot(height$fheight, res,
 abline(0, 0)
  
 ```
+
 As mentioned in the exploratory analysis section, since the plot of fitted values vs the residuals is random, a linear model is appropriate to use. 
 
 f) (5 pt) Using the model you fit in part (b) predict the height of 5 males whose father are 50, 55, 70, 75, and 90 inches respectively. You may find the predict() function helpful.
+
 ```{r 4.f}
 values <- data.frame(fheight=c(50,55,70,75,90))
 predictions <-  predict(fit, newdata = values)
 val <- as.numeric(c(50,55,70,75,90))
-class(predictions)
 m <- ggplot(mapping = aes(x = val, y =predictions))
 m <- m + geom_point() + labs(title = "Predicting Son's Height") + xlab("Father's Height")+ ylab("Prediction of Son's Height")
 m
@@ -182,7 +199,9 @@ g) (5 pt) What do the estimates of the slope and height mean? Are the results st
 ```{r 4.g}
 summary(fit)
 ```
+
 The estimates of the slope and height are statistically significant as the p-value for both ( < 2e-16 ) is very small. Indicating that the possibility of observing this by chance is very small. The estimates of the slope means that for an increase in every inch of the father's height, the son's height increase by 0.51409 inches. The estimate of the intercept means that if the father's height is zero the son's height is 33.86 inches which doesn't make sense. There would've been no data where the father's height is zero. However it is acceptable to interpret this as a coefficient in the model. 
+
 ## 5 
 
 
@@ -212,7 +231,49 @@ est_conf <- confint(mod1)
 est_conf
 ```
 
+Intercept Estimate:
+92.2717 (95% CI : 51.294, 133.249)
+Score Estimate: 
+0.1414 (95% CI : -0.116, 0.398)
+
 ```{r 5.b.2}
-est_conf <- confint(mod2)
-est_conf
+est_conf_2 <- confint(mod2)
+est_conf_2
 ```
+
+Intercept Estimate:
+-9.5521 (95% CI : -73.537, 54.432)
+Score Estimate: 
+0.8026 (95% CI : 0.400, 1.204)
+
+c) (5 pt) How are these interpreted?
+Assuming the null hypothesis is true, we can say with 95% confidence that the true intercept for the model of analytical skills of a young child and his/her father will lie between 51.294 and 133.249 and the true slope would lie between -0.116 and 0.398
+
+Similarly,
+Assuming the null hypothesis is true, we can say with 95% confidence that the true intercept for the model of analytical skills of a young child and his/her mother will lie between -73.537 and 54.432 and the true slope would lie between 0.400 and 1.204
+
+
+d) (5 pt) What conclusions can you draw about the association between the child’s score and the mother and father’s IQ?
+
+Looking at the Adjusted R-squared in both models we can see that the Adjusted R-squared for the model fitting the association between the father's IQ and the child's score is 0.007 whereas the Adjusted R-squared for the model fitting the association between the mother's IQ and the child's score is 0.3065. Thus the adjusted r-squared for the model fitting the association betweeen the mother's IQ and the child's score is greater and statistically more significant than that between the father's. Thus we can interpret that the mother's IQ is a better predictor of the analytical skills of a young child 
+
+```{r 5.d.1, include= FALSE}
+require(gridExtra)
+```
+
+```{r 5.d.2}
+g1<- ggplot(data = gifted,mapping = aes(x= fatheriq, y = score))
+g1 <- g1 + geom_point() + xlab("Father's IQ") + ylab("Child's Score")
+g1 <- g1 + labs(title = "Plot of analytical skills of child")
+g1 <- g1 + geom_smooth(method = 'lm', se = TRUE)
+
+
+g2<- ggplot(data = gifted,mapping = aes(x= motheriq, y = score))
+g2 <- g2 + geom_point() + xlab("Mother's IQ") + ylab("Child's Score")
+g2<- g2 + labs(title = "Plot of analytical skills of child")
+g2 <- g2 + geom_smooth(method = 'lm', se = TRUE)
+
+
+grid.arrange(g1, g2, ncol = 2)
+```
+
