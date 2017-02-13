@@ -85,6 +85,8 @@ Z <- num /den
 
 (2 pt) If you were the potato chip company would you rather have your alpha = 0.05 or
 0.025 in this case? Why?
+
+since the Z-score is 2.088 which is approximately 2 std deviations away from the mean 
 ## 5 
 
 An investigator is interested in understanding the relationship, if any, between the analytical skills of young gifted children and the father’s IQ, the mother’s IQ, and hours of educational TV. The data are here:
