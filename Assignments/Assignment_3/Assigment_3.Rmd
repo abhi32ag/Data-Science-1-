@@ -38,13 +38,56 @@ Ans: The parameter of interest here is proportion
 
 (5 pt) In 2013, the Pew Research Foundation reported that “45% of U.S. adults report that they live with one or more chronic conditions”. However, this value was based on a sample, so it may not be a perfect estimate for the population parameter of interest on its own. The study reported a standard error of about 1.2%, and a normal model may reasonably be used in this setting. Create a 95% confidence interval for the proportion of U.S. adults who live with one or more chronic conditions. Also interpret the confidence interval in the context of the study.
 
+```{r 2}
+u <- 45
+se <- 1.2
+left <- 45 - 1.96*se
+right <- 45 + 1.96*se
+left
+```
+
+```{r 2.a}
+right 
+```
+So as we can see the confidence interval is between (42.648, 47.352)
+With 95% confidence we can say that the average number of adults that live with one or more chronic conditions lies between 42.648 and 47.352 
 
 
+## 3 
+
+The nutrition label on a bag of potato chips says that a one ounce (28 gram) serving of potato chips has 130 calories and contains ten grams of fat, with three grams of saturated fat. A random sample of 35 bags yielded a sample mean of 136 calories with a standard deviation of 17 calories.
+
+a) Write down the null and alternative hypotheses for a two-sided test of whether the nutrition label is lying.
+
+Null Hypothesis : The mean of a one ounce serving of potato chips is 130 calories 
+
+Alternate Hypothesis : Th mean of a one ounce seving of potato chips is greater than 130 calories 
+
+b) (4 pt) Calculate the test statistic and find the p value.
+
+Assuming the null hypothesis to be true : u  = 130 
+x_bar = 136 
+n = 35
+sd = 17 
+
+Z = x_bar - u / ( sd / sqrt(n) )
+
+```{r 3.b}
+u  = 130 
+x_bar = 136 
+n = 35
+sd = 17 
+num <- x_bar - u 
+den <- sd / sqrt(n)
+Z <- num /den 
+2*pnorm(-abs(Z))
+```
+
+(2 pt) If you were the potato chip company would you rather have your alpha = 0.05 or
+0.025 in this case? Why?
 ## 5 
 
-An investigator is interested in understanding the relationship, if any, between the analytical
-skills of young gifted children and the father’s IQ, the mother’s IQ, and hours of educational TV.
-The data are here:
+An investigator is interested in understanding the relationship, if any, between the analytical skills of young gifted children and the father’s IQ, the mother’s IQ, and hours of educational TV. The data are here:
 
 ```{r 5}
 library(openintro)
@@ -52,5 +95,11 @@ data(gifted)
 ```
 
 ```{r 5.a}
-lm
+mod1 <- lm(fatheriq ~ score, data = gifted)
+summary(mod1)
+```
+
+```{r 5.b}
+mod2 <- lm(motheriq ~ score, data = gifted)
+summary(mod2)
 ```
