@@ -61,7 +61,7 @@ a) Write down the null and alternative hypotheses for a two-sided test of whethe
 
 Null Hypothesis : The mean of a one ounce serving of potato chips is 130 calories 
 
-Alternate Hypothesis : Th mean of a one ounce seving of potato chips is greater than 130 calories 
+Alternate Hypothesis : Th mean of a one ounce seving of potato chips is greater or lesser than 130 calories 
 
 b) (4 pt) Calculate the test statistic and find the p value.
 
@@ -86,14 +86,14 @@ Z <- num /den
 (2 pt) If you were the potato chip company would you rather have your alpha = 0.05 or
 0.025 in this case? Why?
 
-since the Z-score is 2.088 which is approximately 2 std deviations away from the mean. If the significance level is 0.05 which corresponds to 2 standard deviations from the mean, we would have to reject the null hypothesis that the calories in one serving is 130 calories and accept that it is more than 130 calories. However if the significance level is 0.025 we would be within the confidence interval and accept the null hypothesis.But that being said, we cannot assume the significance level after calculating or taking the samples as this is ethically not correct. 
+since the p-value is 0.036, if the significance level is 0.05, the p-value is lesser than the significance level, therefore we would have to reject the null hypothesis that the calories in one serving is 130 calories and accept that it is more than 130 calories. However if the significance level is 0.025 we would be within the confidence interval and accept the null hypothesis.But that being said, we cannot assume the significance level after calculating or taking the samples as this is ethically not correct. 
 
 
 ## 4 
 
 Regression was originally used by Francis Galton to study the relationship between parents and children. He wondered if he could predict a man’s height based on the height of his father? This is the question we will explore in this problem. You can obtain data similar to that used by Galton as follows:
 
-```{r 4}
+```{r 4, include = FALSE}
 library(UsingR)
 height <- get("father.son")
 
@@ -136,13 +136,15 @@ g
 ```
 
 
+e) (5 pt) Produce a visualization of the residuals versus the fitted values. (You can inspect the elements of the linear model object in R using names()). Discuss what you see. Do you have any concerns about the linear model?
+
 ## 5 
 
 
 
 An investigator is interested in understanding the relationship, if any, between the analytical skills of young gifted children and the father’s IQ, the mother’s IQ, and hours of educational TV. The data are here:
 
-```{r 5}
+```{r 5, include = FALSE}
 library(openintro)
 data(gifted)
 ```
