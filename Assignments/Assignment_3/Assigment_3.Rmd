@@ -18,7 +18,7 @@ Ans: These responses are numerical and the parameter of interest is a mean
 
 b) (1 pt) In a survey, one hundred college students are asked: “What percentage of the time you spend on the Internet is part of your course work?”
 
-Ans: These responses are numerical. Therefore parameter of interest would be proportion 
+Ans: The parameter of interest would be proportion
 
 c) (1 pt) In a survey, one hundred college students are asked whether or not they cited information from Wikipedia in their papers.
 
@@ -30,7 +30,7 @@ Ans: The parameter of interest here is proportion
 
 e) (1 pt) In a sample of one hundred recent college graduates, it is found that 85 percent expect to get a job within one year of their graduation date.
 
-Ans: The parameter of interest here is proportion 
+Ans: The parameter of interest here is proportion since 85 percent of the population expect to get a job and the remaining precent don't.  
 
 ## 2
 
@@ -211,7 +211,7 @@ g) (5 pt) What do the estimates of the slope and height mean? Are the results st
 summary(fit)
 ```
 
-The estimates of the slope and height are statistically significant as the p-value for both ( < 2e-16 ) is very small. Indicating that the possibility of observing this by chance is very small. The estimates of the slope means that for an increase in every inch of the father's height, the son's height increase by 0.51409 inches. The estimate of the intercept means that if the father's height is zero the son's height is 33.86 inches which doesn't make sense. There would've been no data where the father's height is zero. However it is acceptable to interpret this as a coefficient in the model. 
+The estimates of the slope and height are statistically significant as the p-value for both ( < 2e-16 ) is very small. Indicating that the possibility of observing this by chance is very small. The estimates of the slope means that for an increase in every inch of the father's height, the son's height increase by 0.51409 inches. The estimate of the intercept means that if the father's height is zero the son's height is 33.86 inches which doesn't make sense. There would've been no data where the father's height is zero hence we are getting this as an anomaly. However it is acceptable to interpret this as a coefficient in the model. The estimates are practically significant as an increase in 1 inch in the father's height means an increase in the son's height by 0.5 inches which could be applicable in a practical setting, although there could be some exceptions to this trend 
 
 ## 5 
 
@@ -225,12 +225,12 @@ data(gifted)
 ```
 
 ```{r 5.a.1}
-mod1 <- lm(fatheriq ~ score, data = gifted)
+mod1 <- lm(score ~ fatheriq, data = gifted)
 summary(mod1)
 ```
 
 ```{r 5.a.2}
-mod2 <- lm(motheriq ~ score, data = gifted)
+mod2 <- lm(score ~ motheriq, data = gifted)
 summary(mod2)
 ```
 
@@ -241,27 +241,27 @@ Estimate (95% CI: CIlower, CIupper)
 est_conf <- confint(mod1)
 est_conf
 ```
-
+Father
 Intercept Estimate:
-92.2717 (95% CI : 51.294, 133.249)
+130.429 (95% CI : 78.154, 182.704)
 Score Estimate: 
-0.1414 (95% CI : -0.116, 0.398)
+0.2501 (95% CI : -0.205, 0.705)
 
 ```{r 5.b.2}
 est_conf_2 <- confint(mod2)
 est_conf_2
 ```
-
+Mother
 Intercept Estimate:
--9.5521 (95% CI : -73.537, 54.432)
+111.093 (95% CI : 86.997, 135.188)
 Score Estimate: 
-0.8026 (95% CI : 0.400, 1.204)
+0.4066 (95% CI : 0.202, 0.610)
 
 c) (5 pt) How are these interpreted?
-Assuming the null hypothesis is true, we can say with 95% confidence that the true intercept for the model of analytical skills of a young child and his/her father will lie between 51.294 and 133.249 and the true slope would lie between -0.116 and 0.398
+Assuming the null hypothesis is true, we can say with 95% confidence that the true intercept for the model of analytical skills of a young child and his/her father will lie between 78.154 and 182.704 and the true slope would lie between -0.205 and 0.705
 
 Similarly,
-Assuming the null hypothesis is true, we can say with 95% confidence that the true intercept for the model of analytical skills of a young child and his/her mother will lie between -73.537 and 54.432 and the true slope would lie between 0.400 and 1.204
+Assuming the null hypothesis is true, we can say with 95% confidence that the true intercept for the model of analytical skills of a young child and his/her mother will lie between 86.997 and 135.188 and the true slope would lie between  0.202 and 0.610
 
 
 d) (5 pt) What conclusions can you draw about the association between the child’s score and the mother and father’s IQ?
