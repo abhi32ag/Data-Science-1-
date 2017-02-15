@@ -18,7 +18,7 @@ Ans: These responses are numerical and the parameter of interest is a mean
 
 b) (1 pt) In a survey, one hundred college students are asked: “What percentage of the time you spend on the Internet is part of your course work?”
 
-Ans: The parameter of interest would be proportion
+Ans: The parameter of interest would be a mean. Since we're loooking at individual numerical responses of over 100 individuals. 
 
 c) (1 pt) In a survey, one hundred college students are asked whether or not they cited information from Wikipedia in their papers.
 
@@ -26,7 +26,7 @@ Ans: These responses would be categorical as they would be answered in yes / no 
 
 d) (1 pt) In a survey, one hundred college students are asked what percentage of their total weekly spending is on alcoholic beverages.
 
-Ans: The parameter of interest here is proportion 
+Ans: The parameter of interest here is mean. Since we're loooking at individual numerical responses of over 100 individuals. 
 
 e) (1 pt) In a sample of one hundred recent college graduates, it is found that 85 percent expect to get a job within one year of their graduation date.
 
