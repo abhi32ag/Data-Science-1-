@@ -89,7 +89,7 @@ P-value for two-tailed = `r R`
 c) (2 pt) If you were the potato chip company would you rather have your alpha = 0.05 or
 0.025 in this case? Why?
 
-Since the p-value is 0.036, if the significance level is 0.05, the p-value is lesser than the significance level, therefore we would have to reject the null hypothesis that the calories in one serving is 130 calories and accept that it is more than 130 calories. However if the significance level is 0.025 we would be within the confidence interval and accept the null hypothesis. But that being said, we cannot assume the significance level after calculating or taking the samples as this is ethically not correct. 
+Since the p-value is 0.036, if the significance level is 0.05, the p-value is lesser than the significance level, therefore we would have to reject the null hypothesis that the calories in one serving is 130 calories and accept that it is more than 130 calories. However if the significance level is 0.025 we would be within the confidence interval and accept the null hypothesis. Thus we should use the 0.025 significance level. But that being said, we cannot assume the significance level after calculating or taking the samples as this is ethically not correct. 
 
 
 ## 4 
@@ -181,10 +181,11 @@ e) (5 pt) Produce a visualization of the residuals versus the fitted values. (Yo
 ```{r 4.e}
 fit <- lm(sheight ~ fheight, data = height)
 res <- resid(fit)
+fitted <- fit$fitted.values
 par(mfrow = c(1,1))
-plot(height$fheight, res, 
+plot(fitted, res, 
      ylab = "Residuals",
-     xlab = "Father's Height ( Fitted Values)",
+     xlab = "Fitted Values",
      main = "Residuals of Height")
 abline(0, 0)
  
