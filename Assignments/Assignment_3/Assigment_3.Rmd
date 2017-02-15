@@ -78,8 +78,13 @@ sd = 17
 num <- x_bar - u 
 den <- sd / sqrt(n)
 Z <- num /den 
-2*pnorm(-abs(Z))
+R <- 2*pnorm(-abs(Z))
 ```
+
+Z-statistic = `r Z`
+
+P-value for two-tailed = `r R`
+
 
 c) (2 pt) If you were the potato chip company would you rather have your alpha = 0.05 or
 0.025 in this case? Why?
@@ -131,6 +136,8 @@ ggplot(height, aes(x = fheight, y = sheight)) +
 ```
 
 We can see how the further the further the actual data point is from the regression line, the darker is the point 
+
+
 b) (5 pt) Use the lm function in R to fit a simple linear regression model to predict son’s
 height as a function of father’s height. Write down the model,
 
@@ -169,6 +176,8 @@ g
 
 
 e) (5 pt) Produce a visualization of the residuals versus the fitted values. (You can inspect the elements of the linear model object in R using names()). Discuss what you see. Do you have any concerns about the linear model?
+
+
 ```{r 4.e}
 fit <- lm(sheight ~ fheight, data = height)
 res <- resid(fit)
