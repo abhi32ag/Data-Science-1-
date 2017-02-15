@@ -191,13 +191,14 @@ abline(0, 0)
  
 ```
 
-As mentioned in the exploratory analysis section, since the plot of fitted values vs the residuals is random, a linear model is appropriate to use. 
+As mentioned in the exploratory analysis section, since the plot of fitted values vs the residuals is random and scattered around zero, a linear model is appropriate to use. 
 
 f) (5 pt) Using the model you fit in part (b) predict the height of 5 males whose father are 50, 55, 70, 75, and 90 inches respectively. You may find the predict() function helpful.
 
 ```{r 4.f}
 values <- data.frame(fheight=c(50,55,70,75,90))
 predictions <-  predict(fit, newdata = values)
+predictions
 val <- as.numeric(c(50,55,70,75,90))
 m <- ggplot(mapping = aes(x = val, y =predictions))
 m <- m + geom_point() + labs(title = "Predicting Son's Height") + xlab("Father's Height")+ ylab("Prediction of Son's Height")
