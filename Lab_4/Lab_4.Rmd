@@ -24,6 +24,21 @@ mod <- glm(income.g50 ~ education + age + sex + race,
 data=data[,!colnames(data)%in%"income"], family="binomial")
 ```
 
+```{r Exploring.a}
+summary(mod)
+```
+
+The odd ratio for having a master's degree is 2.91 
+and for having 1st to 4th grade education is -0.18
+
+
+The p-value for Master's degree is < 2e -16 hence it is statistically significant but the p-value for 1st - 4th grade education is 0.78371 hence there is more probability that this is by chance. 
+
+
+
+
+
+
 Info 573: Data Science I: Theoretical Foundations
 Lab: Machine Learning
 Instructor: Ben Althouse; Contact: bma85@uw.edu
