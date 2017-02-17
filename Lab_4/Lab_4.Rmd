@@ -27,14 +27,22 @@ data=data[,!colnames(data)%in%"income"], family="binomial")
 ```{r Exploring.a}
 summary(mod)
 ```
-
-The odd ratio for having a master's degree is 2.91 
+## a.) 
+The log odds ratio for having a master's degree is 2.91 
 and for having 1st to 4th grade education is -0.18
 
+The log odds ratio for having a master's degree is `r exp(2.91)` 
+and for having 1st to 4th grade education is `r exp(-0.18)`
 
 The p-value for Master's degree is < 2e -16 hence it is statistically significant but the p-value for 1st - 4th grade education is 0.78371 hence there is more probability that this is by chance. 
 
+`r 0.5/22` is the adjusted alpha level. So we can see that the p-value for Master's is lower than 0.0227273 so it is significant however education 1st -4th is 0.78371 hence it isn't as signficant 
 
+## b.)
+```{r Exploring.b}
+
+
+```
 
 
 
