@@ -91,17 +91,55 @@ The model fits well as the AUC is 0.802
 
 ## 6
 
-```{ Formulate}
+a.
+```{r Formulate}
 mod <- glm(income.g50~.,
 data=data[,!colnames(data)%in%c("income")], family="binomial")
+summary(mod)
 ```
 
+The same patterns are not seen for schooling 
 
-b. Plot the age by the outcome and the observed predicted probabilities. Do the
-predicted probabilities have the same pattern as the other model? Why or why not?
-c. Calculate the percent error as before for cutoffs 0.25, 0.5, 0.75. Which cutoff has the
-lowest percent error? Does this model perform better than the other model?
-d. Plot the ROC and calculate the AUC. Again, does this model out perform the other
-model?
-Extra credit (5 points): Run a k-fold validation on both models and decide which you
-would prefer to use for predicting high income.
+
+```{r Formulate.b}
+
+x <- data$age
+plot(x, data$income.g50, col="blue")
+fits <- fitted(mod)
+points(x, fits, pch=19, cex=0.3)
+```
+
+No the predicted probabilities do not have the same pattern as the other model as we were not considering the additional variables 
+
+
+
+c.
+```{r Formulate.c}
+
+tab <- table(data$income.g50, fits>=0.25)
+(tab[1,2]+tab[2,1])/sum(tab)
+tab
+tab <- table(data$income.g50, fits>=0.5)
+(tab[1,2]+tab[2,1])/sum(tab)
+
+tab <- table(data$income.g50, fits>=0.75)
+(tab[1,2]+tab[2,1])/sum(tab)
+
+```
+
+The cutoff is 0.5 for lowest percent error. However we can see that for all three cutoffs this model has a lower percent error than the other model 
+
+
+
+d. Plot the ROC and calculate the AUC. Again, does this model out perform the other model?
+```{r Formulate.d}
+library(AUC)
+y <- factor(data$income.g50)
+rr <- roc(fits, y)
+plot(rr)
+auc(rr)
+```
+
+This model does outperform the other model as the auc is 0.889 whereas the earlier model is 0.808 
+
+Extra credit (5 points): Run a k-fold validation on both models and decide which you would prefer to use for predicting high income.
