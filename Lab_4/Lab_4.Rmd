@@ -143,3 +143,42 @@ auc(rr)
 This model does outperform the other model as the auc is 0.889 whereas the earlier model is 0.808 
 
 Extra credit (5 points): Run a k-fold validation on both models and decide which you would prefer to use for predicting high income.
+
+
+```{r cross-validation}
+library(caret)
+set.seed(10)
+mod1 <- createDataPartition(data$income.g50, p =0.6, list = FALSE)
+mod1_training <- data[mod1,]
+mod1_testing <- data[ -mod1, ]
+
+mod1_fit <- train(income.g50 ~ education + age + sex + race,
+data=mod1_training[,!colnames(data)%in%"income"], method="glm", family="binomial")
+
+summary(mod1_fit)
+
+set.seed(10)
+mod2 <- createDataPartition(data$income.g50, p =0.6, list = FALSE)
+mod2_training <- data[mod1,]
+mod2_testing <- data[ -mod1, ]
+
+mod2_fit <- train(income.g50~.,
+data=data[,!colnames(data)%in%c("income")], method="glm", family="binomial")
+
+summary(mod2_fit)
+
+require(glmnet)
+
+ctrl1 <- trainControl(method='cv', number = 10, savePredictions= TRUE)
+mod1_fit <- train(income.g50 ~ education + age + sex + race,
+data=mod1_training[,!colnames(data)%in%"income"], method="glmnet", family="binomial", trControl = ctrl1, tuneLength = 5)
+mod1_fit
+
+
+require(glmnet)
+
+ctrl2 <- trainControl(method='cv', number = 10, savePredictions= TRUE)
+mod2_fit <- train(income.g50 ~ .,
+data=mod2_training[,!colnames(data)%in%"income"], method="glmnet", family="binomial", trControl = ctrl2, tuneLength = 5)
+mod2_fit
+```
