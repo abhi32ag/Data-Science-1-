@@ -182,3 +182,7 @@ mod2_fit <- train(income.g50 ~ .,
 data=mod2_training[,!colnames(data)%in%"income"], method="glmnet", family="binomial", trControl = ctrl2, tuneLength = 5)
 mod2_fit
 ```
+
+Thus we can see that after performing k cross validation the second model has a better R-squared on most predictors than the first model 
+
+
