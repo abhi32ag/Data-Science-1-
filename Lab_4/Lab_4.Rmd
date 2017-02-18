@@ -58,22 +58,45 @@ The predicted outcomes are so variable because although age is on the x-axis the
 
 ## 4
 ```{r Explore prob}
+
+tab <- table(data$income.g50, fits>=0.25)
+(tab[1,2]+tab[2,1])/sum(tab)
+
 tab <- table(data$income.g50, fits>=0.5)
 (tab[1,2]+tab[2,1])/sum(tab)
+
+tab <- table(data$income.g50, fits>=0.75)
+(tab[1,2]+tab[2,1])/sum(tab)
+
 ```
-5. Examine this model.
-a. Plot the ROC curve and calculate the AUC for this model.
+
+The cutoff with 0.5 has lowest percent error 
+
+
+
+## 5
+```{r Examine}
 library(AUC)
 y <- factor(data$income.g50)
 rr <- roc(fits, y)
 plot(rr)
 auc(rr)
+```
+
+
 b. How well does it fit?
-6. Let’s formulate another model.
-a. Fit a model with all covariates (except “income”!). Do you see the same patterns for
-level of schooling?
+
+The model fits well as the AUC is 0.802 
+
+
+## 6
+
+```{ Formulate}
 mod <- glm(income.g50~.,
 data=data[,!colnames(data)%in%c("income")], family="binomial")
+```
+
+
 b. Plot the age by the outcome and the observed predicted probabilities. Do the
 predicted probabilities have the same pattern as the other model? Why or why not?
 c. Calculate the percent error as before for cutoffs 0.25, 0.5, 0.75. Which cutoff has the
