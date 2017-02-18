@@ -39,9 +39,17 @@ The p-value for Master's degree is < 2e -16 hence it is statistically significan
 `r 0.5/22` is the adjusted alpha level. So we can see that the p-value for Master's is lower than 0.0227273 so it is significant however education 1st -4th is 0.78371 hence it isn't as signficant 
 
 ## b.)
+P-values for both age and sex are < 2e-16 therefore they are both statistically significant and are practically significant as age and sex do determine a person's income 
+
+
+
+## 3
 ```{r Exploring.b}
 
-
+x <- data$age
+plot(x, data$income.g50, col="blue")
+fits <- fitted(mod)
+points(x, fits, pch=19, cex=0.3)
 ```
 
 
