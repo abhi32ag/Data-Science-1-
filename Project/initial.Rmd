@@ -1,0 +1,181 @@
+---
+title: "Initial_analysis"
+author: "Abhinav Garg"
+date: "2/15/2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+setwd("/Users/abhi/Data_Hai_Yeh_Beta")
+```
+
+## Load 
+
+```{r Load}
+ken_data <- read.csv("subset.csv", header = TRUE, sep=',')
+```
+
+```{r Explore}
+barplot(table(ken_data$E.9..If.given.an.opportunity.to.open.a.new.agency..would.you.be.willing.to.))
+
+hist(ken_data$E.8..How.profitable.is.being.an.agent.for.you.) # Likert scale from 1 - 7, 7 being highest 
+counts <- table(ken_data$E.8..How.profitable.is.being.an.agent.for.you.)
+counts
+na.hai <- sum(as.numeric(is.na(ken_data$E.8..How.profitable.is.being.an.agent.for.you.)))
+n <- nrow(ken_data)
+```
+
+Na's : `r na.hai`
+Actual responses : `r n - na.hai`
+```{r Explore1.1}
+pc_counts <- 100*counts/(n - na.hai)
+pc_counts # percent agents who responded who feel it's profitable 
+```
+
+Let's see Paisa kitna mila
+
+```{r Explore1.2}
+sal_com <- ken_data$E.2.Do.you.receive.a.salary.from.your.employer.or.a.commission.from.the.provider
+barplot(table(sal_com))
+sal_com_count <- table(sal_com)
+sal_com_count
+
+```
+
+Wow salaries aren't there 
+```{r Explore1.3}
+
+table(ken_data$E.10..Do.you.receive.a.bonus.based.on.the.amount.of.business.you.do.as.an.agent.)
+table(ken_data$E.10..Do.you.receive.a.bonus.based.on.the.amount.of.business.you.do.as.an.agent..1)
+```
+
+36 bonus amounts given 
+
+
+```{r Explore1.4}
+
+
+ken_e <- table(ken_data$C.13.1..How.many.transactions.do.you.do.on.average...Enrolment..Registration)
+
+ken_e
+```
+
+```{r Load_naya_data}
+naya_data <- read.csv("fin_access.csv")
+```
+
+```{r Explore naya data}
+fone <- naya_data$mobile
+paisa <- naya_data$monthly_income
+mma <- naya_data$e1_37
+gender <- naya_data$gender_of_household_head
+hh_size <- naya_data$a_7_1
+num_income <- naya_data$a_7_2
+urban <- naya_data$urban
+rural <- naya_data$rural
+education_spouse <- naya_data$a_16
+spending_decider <- naya_data$b1_1
+d2 <-naya_data[,grepl("^d2", names(naya_data))]
+e29 <-naya_data$e1_29
+e30 <- naya_data$e1_30
+e34 <- naya_data$e1_34
+f15 <- naya_data[,grepl("^f15", names(naya_data))]
+f16 <- naya_data[,grepl("^f16", names(naya_data))]
+f17 <- naya_data[,grepl("^f17", names(naya_data))]
+f18 <- naya_data[,grepl("^f18", names(naya_data))]
+f19 <- naya_data[,grepl("^f19", names(naya_data))]
+h15 <- naya_data$h15
+l12 <- naya_data$l12
+l17 <- naya_data$l17
+expense_inc <- naya_data$expense_inc
+# d1 and d2 to be concatenated 
+#d11
+# e1  - 29 30 34 
+# e21 
+# f - 15,16,17,18,19
+# h 15 
+# l 12,17
+
+comb_data <- cbind(fone, paisa, mma, gender, hh_size ,num_income, urban, rural, education_spouse, spending_decider,d2,e29,e30,e34,f15,f16,f17,f18,f19,h15,l12,l17,expense_inc)
+comb_data <- as.data.frame(comb_data)
+
+#comb_data$mma_1 <- rep(0, nrow(comb_data)) #Has an mma 
+#comb_data$mma_1[comb_data$mma == 1] <- 1
+
+
+#comb_data$mma_2 <- rep(0, nrow(comb_data)) #Used to have an mma
+#comb_data$mma_2[comb_data$mma == 2] <- 1
+
+
+#comb_data$mma_3 <- rep(0, nrow(comb_data)) #Has never had an mma
+#comb_data$mma_3[comb_data$mma == 3] <- 1
+
+write.csv(comb_data,file="merged_data.csv")
+
+
+```
+
+```{r Regression karte hai dost}
+model_fit1 <- lm(paisa ~ mma, data= comb_data)
+predict(model_fit1, newdata=data.frame("mma" = 1),
+interval="prediction")
+
+
+summary(model_fit1)
+cor(comb_data$mma_1, comb_data$paisa)
+cor(comb_data$mma_2, comb_data$paisa)
+cor(comb_data$mma_3, comb_data$paisa)
+```
+
+
+```{r hist bana}
+library(ggplot2)
+
+ggplot(comb_data, aes(x=mma, y=paisa)) + stat_summary(fun.y="mean", geom="bar")
+```
+
+
+```{r county}
+ggplot(naya_data, aes(x=a2, type = a2, fill = a2, col = a2)) + geom_histogram() + stat_bin(binwidth = 10)
+
+table(naya_data$a2)
+```
+
+```{r explore some more}
+t <- table(naya_data$d2_1)
+plot(t)
+
+t <- table(naya_data$d2_2)
+plot(t)
+
+t <- table(naya_data$d2_3)
+plot(t)
+
+t <- table(naya_data$d2_4)
+plot(t)
+
+t <- table(naya_data$d2_5)
+plot(t)
+
+t <- table(naya_data$d2_6)
+plot(t)
+
+t <- table(naya_data$d2_7)
+plot(t)
+
+t <- table(naya_data$d2_8)
+plot(t)
+
+t <- table(naya_data$d2_9)
+plot(t)
+
+t <- table(naya_data$d2_10)
+plot(t)
+
+t <- table(naya_data$d2_11)
+plot(t)
+
+t <- table(naya_data$d2_12)
+plot(t)
+```
